@@ -1,5 +1,19 @@
 {
+  "name": "drawchat",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "Cameron Hudson <hudsonc808@gmail.com>",
+  "license": "Apache-2.0",
+  "description": "",
   "dependencies": {
     "express": "^4.21.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.9"
   }
 }

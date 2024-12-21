@@ -1,13 +1,14 @@
 {
-  "name": "drawchat",
+  "name": "server",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js"
+    "start": "node server",
+    "dev": "nodemon server"
   },
   "keywords": [],
-  "author": "Cameron Hudson <hudsonc808@gmail.com>",
+  "author": "Cameron Hudson <chudson@middlebury.edu>",
   "license": "Apache-2.0",
   "description": "",
   "dependencies": {

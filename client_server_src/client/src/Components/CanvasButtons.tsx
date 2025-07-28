@@ -21,7 +21,7 @@ export default function CanvasButtons({setColor, setSize} : CanvasButtonsProps) 
     return (
         <div className="CanvasControls">
         
-        <button className="ClearButton">
+        {/* <button className="ClearButton">
             Clear
 
         </button>
@@ -37,7 +37,7 @@ export default function CanvasButtons({setColor, setSize} : CanvasButtonsProps) 
 
         <button className="DecreaseSize">
             -
-        </button>
+        </button> */}
 
 
         </div>

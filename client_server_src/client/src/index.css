@@ -5,14 +5,12 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   /* background-color: rgb(35, 35, 35); */
-  background-image: linear-gradient(black, rgb(175, 174, 174));
+  background-color: rgba(43, 131, 232, 0.558);
   display: flex;
   justify-content: center;
   overflow-x: hidden;
   overflow-y: hidden;
-}
-html {
- background-image: linear-gradient(black, rgb(175, 174, 174));
+  margin: 0;
 }
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

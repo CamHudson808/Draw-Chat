@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import "../App.css"
 import hideIcon from "../icons/hide.svg"
 import showIcon from "../icons/show.svg"
-import supabase from "../config/supabaseClient"
+import supabase from "../supabase_config/supabaseClient"
 
 export default function Login({setUser, setIsLoggedIn} : {setUser:any, setIsLoggedIn:any}) {
 
@@ -32,9 +32,9 @@ export default function Login({setUser, setIsLoggedIn} : {setUser:any, setIsLogg
         }
     }
 
-    function SignInPage() {
-        //Route the user to a different page?
-    }
+    // function SignInPage() {
+    //     //Route the user to a different page?
+    // }
 
     const onToggle = () => {
         if(icon === hideIcon) {

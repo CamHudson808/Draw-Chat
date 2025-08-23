@@ -1,29 +1,66 @@
-import React, { useEffect, useRef } from 'react';
-import './App.css';
-//import TextBox from "./Components/TextBox";
-import CanvasBox from "./Components/CanvasBox";
-import ChatBox from "./Components/ChatBox";
-import Login from "./Components/Login"
-import io from "socket.io-client";
-import { useState } from "react"
-import supabase from "./config/supabaseClient"
-import { Session } from '@supabase/supabase-js';
-import SignIn from './Components/SignIn';
-import { GoogleLogin } from '@react-oauth/google';
+import React, { useEffect, useState, useRef } from 'react';
 import { Socket } from 'socket.io-client';
+import { HashRouter, Routes, Route } from 'react-router-dom';
+import supabase from './supabase_config/supabaseClient'
+import io from "socket.io-client";
+
+import CanvasChat from './Pages/CanvasChat';
+import ChatRooms from './Pages/ChatRooms';
+import Home from "./Pages/Home"
+import CreateRoom from './Pages/CreateRoom';
+import CreateProfile from './Pages/CreateProfile';
+import PageNotFound from './Pages/PageNotFound';
+
+import PrivateRoutes from './Components/PrivateRoutes';
+
+import './App.css';
 
 interface User {
   username: string;
   password: string;
-}
+};
+
+// interface Room {
+//   roomName: string;
+//   id: string;
+//   desc: string;
+//   img: string;  
+// };
 
 function App() {
-  const [session, setSession] = useState<Session | null>(null)
-  const [user, setUser] = useState<User[]>([]);
-  const [loggedIn, setIsLoggedIn] = useState(false)
+  // const [session, setSession] = useState<Session | null>(null)
+  const [hasUser, setHasUser] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
   const [messages, setMessages] = useState<string[]>([]);
+  // const [rooms, setRooms] = useState<Room[]>([]);
+  const [supabaseData, setSupabaseData] = useState<any[] | null>([]);
+
+  // const supabase_url: string | undefined =  process.env.REACT_APP_SUPABASE_URL;
+  // const supabase_api_key: string | undefined = process.env.R
+
   let socket = useRef<Socket>(null);
   const socketUrl = 'http://localhost:3000';
+
+  //Gets info if logged in and has a user
+  useEffect(() => {
+    async function getUserSession() {
+     const { data } = await supabase.auth.getSession();
+     if(data) {
+      setIsLoggedIn(true);
+     }
+    }
+    async function getUserInfo() {
+      const { data } = await supabase.auth.getUser();
+      if(data) {
+        setHasUser(true);
+      }
+    }
+    getUserSession();
+    getUserInfo();
+  }, [])
+
+  console.log(hasUser);
+  console.log(isLoggedIn);
 
   //Connects socket
   useEffect(() => {
@@ -34,11 +71,36 @@ function App() {
         console.log(data);
         let newMessages = [...messages, data];
         setMessages(newMessages);
-        //Create a function that makes a message
-
     });
 
-  }, [socketUrl, messages]) 
+  }, [socketUrl, messages]);
+
+   //Gets data from supabase
+  useEffect(() => {
+    async function fetchRooms() {
+    const { data } = await supabase.from("Chat_Rooms").select();
+    setSupabaseData(data);
+  }
+    fetchRooms();
+  }, []);
+
+   return (
+    <HashRouter>
+      <Routes>
+        {/* <Route path="Login" element={<Login setUser={setUser} setIsLoggedIn={setIsLoggedIn}/>}></Route> */}
+        <Route path="/" element={<Home/>}/>
+        {/* Private Routes */}
+        <Route element={<PrivateRoutes/>}>
+        <Route path="createProfile" element={<CreateProfile hasUser={hasUser}/>}/>
+        <Route path="drawRoom" element={<CanvasChat socket = {socket} messages = {messages}/>}/>
+        <Route path="/joinRooms" element={<ChatRooms roomsData = {supabaseData}/>}/>
+        <Route path="/createRoom" element={<CreateRoom/>}/>
+        </Route>
+        <Route path="*" element={<PageNotFound/>} />
+      </Routes>
+    </HashRouter>
+  );
+}
 
   //This is how we are doing supabase google authentication
   // useEffect(() => {
@@ -88,20 +150,6 @@ function App() {
 //     </div>
 //   );
 // }
-// During developement
-return (
-  <div className="App">
-   
-   {/* <button className='signOut' onClick = {SignOut}> Sign Out </button> */}
-   
-    <div className="CanvasChat">
-      <div className= "canvasbox">
-        <CanvasBox/>
-      </div>
-      <ChatBox socket = {socket} messages = {messages}/>
-    </div>
-  </div>
-);
-}
 
 export default App;
+

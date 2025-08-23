@@ -1,5 +1,6 @@
 import React from "react";
 import "../App.css";
+
 /*
 How this should work:
 message gets sent to the server, server sends it back to all connected clients

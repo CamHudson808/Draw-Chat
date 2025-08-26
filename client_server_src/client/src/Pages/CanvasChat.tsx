@@ -4,7 +4,13 @@ import ChatBox from "../Components/ChatBox";
 import { Socket } from 'socket.io-client';
 import { Link } from 'react-router-dom';
 
-export default function CanvasChat({ socket, messages }: {socket: React.RefObject<Socket | null>, messages: string[]}) {
+interface Message {
+    username: string;
+    message: string;
+}
+
+
+export default function CanvasChat({ socket, messages }: {socket: React.RefObject<Socket | null>, messages: Message[]}) {
 return (
 <div className="App">
    {/* <button className='signOut' onClick = {SignOut}> Sign Out </button> */}

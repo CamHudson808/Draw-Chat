@@ -2,7 +2,9 @@ import React from 'react';
 import { useState, useRef, useEffect } from 'react'
 import { Socket } from 'socket.io-client';
 
-export default function InputBar({socket, setCharLeft}: {socket: React.RefObject<Socket | null>, setCharLeft: React.Dispatch<React.SetStateAction<number>>}) {
+export default function InputBar({socket, setCharLeft, username}: {socket: React.RefObject<Socket | null>, 
+    setCharLeft: React.Dispatch<React.SetStateAction<number>>, username: string}) {
+
     const [messageInput, setMessageInput] = useState<string>("");
     //Message input causes a re render, which in this instances restarts socket.io(), so i should pass it in a a prop
     // const socket = io(); //On default will try to connect to the url that served it?
@@ -26,7 +28,8 @@ export default function InputBar({socket, setCharLeft}: {socket: React.RefObject
         if (event.key === 'Enter' && input_ref.current === document.activeElement
             && messageInput.length > 0
         ) {
-            let message = messageInput;
+            let message = {username: username, message: messageInput};
+            console.log(message);
             //Now, we need to find a way to send this to the server
             // console.log(`${message}`);
             // console.log(`user [${socket?.current.id}] trying to send a message`);

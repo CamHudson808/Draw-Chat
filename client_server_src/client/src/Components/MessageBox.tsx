@@ -8,7 +8,12 @@ First, we need to figure out how server stuff works
 We know that node is the way we do server stuff, so lets hop to the backend code
 */
 
-export default function MessageBox({messages}: {messages: string[]}) {
+interface Message {
+    username: string;
+    message: string;
+}
+
+export default function MessageBox({messages}: {messages: Message[]}) {
     //This should be a flexbox that contains messages 
     return (
     <div className = "messageBox">
@@ -16,7 +21,7 @@ export default function MessageBox({messages}: {messages: string[]}) {
             {messages.map((msg, index) => {
                 return <li className={
                 index % 2 !== 0 ? "messageLi li-odd" : "messageLi li-even"
-                }>{msg}</li>
+                }>{msg.username + ": " + msg.message}</li>
             })}
         </ul>
     </div>

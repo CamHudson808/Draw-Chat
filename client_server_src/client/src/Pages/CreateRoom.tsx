@@ -14,7 +14,6 @@ const [roomName, setRoomName] = useState<string>("");
 const [roomDesc, setRoomDesc] = useState<string>("");
 const navigate = useNavigate();
 
-
 async function handleCreate() {
 
         if(!roomName || !roomDesc) {

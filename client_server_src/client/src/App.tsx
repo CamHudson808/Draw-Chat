@@ -9,16 +9,17 @@ import ChatRooms from './Pages/ChatRooms';
 import Home from "./Pages/Home"
 import CreateRoom from './Pages/CreateRoom';
 import CreateProfile from './Pages/CreateProfile';
+import EditProfile from './Pages/EditProfile';
 import PageNotFound from './Pages/PageNotFound';
 
 import PrivateRoutes from './Components/PrivateRoutes';
 
 import './App.css';
 
-interface User {
-  username: string;
-  password: string;
-};
+// interface User {
+//   username: string;
+//   password: string;
+// };
 
 // interface Room {
 //   roomName: string;
@@ -27,11 +28,17 @@ interface User {
 //   img: string;  
 // };
 
+interface Message {
+    username: string;
+    message: string;
+}
+
+
 function App() {
   // const [session, setSession] = useState<Session | null>(null)
   const [hasUser, setHasUser] = useState(false);
-  const [isLoggedIn, setIsLoggedIn] = useState(false)
-  const [messages, setMessages] = useState<string[]>([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
   // const [rooms, setRooms] = useState<Room[]>([]);
   const [supabaseData, setSupabaseData] = useState<any[] | null>([]);
 
@@ -59,19 +66,35 @@ function App() {
     getUserInfo();
   }, [])
 
-  console.log(hasUser);
-  console.log(isLoggedIn);
+  // console.log(hasUser);
+  // console.log(isLoggedIn);
 
   //Connects socket
   useEffect(() => {
     // console.log("we called io() function to connect socket");
     socket.current = io(socketUrl);
 
+    // Og code
     socket.current.on('message server', (data) => {
-        console.log(data);
+        // console.log(data);
         let newMessages = [...messages, data];
         setMessages(newMessages);
     });
+
+    // //Not sure if this code below works at all 
+    // socket.current.on('intro message server', (data) => {
+    //     // console.log(data);
+    //     let newMessages = [...messages, data];
+    //     setMessages(newMessages);
+    // });
+
+
+    // socket.current.on('exit message server', (data) => {
+    //     // console.log(data);
+    //     let newMessages = [...messages, data];
+    //     setMessages(newMessages);
+    // });
+
 
   }, [socketUrl, messages]);
 
@@ -90,11 +113,12 @@ function App() {
         {/* <Route path="Login" element={<Login setUser={setUser} setIsLoggedIn={setIsLoggedIn}/>}></Route> */}
         <Route path="/" element={<Home/>}/>
         {/* Private Routes */}
-        <Route element={<PrivateRoutes/>}>
-        <Route path="createProfile" element={<CreateProfile hasUser={hasUser}/>}/>
-        <Route path="drawRoom" element={<CanvasChat socket = {socket} messages = {messages}/>}/>
-        <Route path="/joinRooms" element={<ChatRooms roomsData = {supabaseData}/>}/>
+        <Route element={<PrivateRoutes isLoggedIn={isLoggedIn}/>}>
+        <Route path="/createProfile" element={<CreateProfile hasUser={hasUser}/>}/>
+        <Route path="/drawRoom" element={<CanvasChat socket = {socket} messages = {messages}/>}/>
+        <Route path="/joinRooms" element={<ChatRooms roomsData = {supabaseData} socket = {socket}/>}/>
         <Route path="/createRoom" element={<CreateRoom/>}/>
+        <Route path="/editProfile" element={<EditProfile/>}/>
         </Route>
         <Route path="*" element={<PageNotFound/>} />
       </Routes>

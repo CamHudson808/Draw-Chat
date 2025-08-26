@@ -1,8 +1,23 @@
 import React from 'react';
 import CanvasRoom from '../Components/CanvasRoom';
-import { Link } from 'react-router-dom';
+import { Socket } from 'socket.io-client';
+import { Link, useNavigate } from 'react-router-dom';
 
-export default function ChatRooms( {roomsData}: {roomsData: any[] | null} ) {
+export default function ChatRooms( {roomsData, socket}: {roomsData: any[] | null, socket: React.RefObject<Socket | null>} ) {
+
+    const navigate = useNavigate();
+
+    function handleConnect(index: number) {
+        //Get this working later...
+        //  if(!socket?.current) {
+        //     return;
+        // }
+        // const roomName = roomsData![index]['roomName'];
+
+        // socket?.current.emit('join room', roomName);
+        // navigate('/drawRoom');
+        return;
+    }
 
     //Figured it out, probably going to have to use dynamic routing to get the rooms working
     return (
@@ -15,12 +30,12 @@ export default function ChatRooms( {roomsData}: {roomsData: any[] | null} ) {
             </div>
 
             <ul className="flex flex-col gap-5 p-4 items-center">
-                {roomsData?.map((data) => {
+                {roomsData?.map((data, index) => {
                     return <li>
-                    <div className="flex justify-center gap-4">
-                    <CanvasRoom name={data['roomName']} description={data['roomDesc']}/>     
-                    <button className="text-white text-2xl p-2 bg-green-500 rounded shaodw">Join</button>
-                    </div>
+                        <div className="flex justify-center gap-4">
+                            <CanvasRoom name={data['roomName']} description={data['roomDesc']}/>     
+                            <button className="text-white text-2xl p-2 bg-green-500 rounded shadow" onClick={() => handleConnect(index)}>Join</button>
+                        </div>
                     </li>
                 })}
             </ul>

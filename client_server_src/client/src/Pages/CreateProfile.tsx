@@ -22,8 +22,8 @@ export default function CreateProfile({hasUser}: {hasUser: boolean}) {
 
     useEffect(()=> {
         if(hasUser) {
-        navigate('/editProfile');
-    }
+            navigate('/editProfile');
+        }
     }, [hasUser, navigate]);
   
     useEffect(() => {
@@ -63,7 +63,7 @@ export default function CreateProfile({hasUser}: {hasUser: boolean}) {
 
         if(data) {
             //redirect the user to join a room
-            console.log(data);
+            // console.log(data);
             navigate('/joinRooms');
         }
        //Table should be id, display_name, avatar_url

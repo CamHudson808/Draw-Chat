@@ -2,8 +2,8 @@ import React from 'react';
 import { useState, useRef, useEffect } from 'react'
 import { Socket } from 'socket.io-client';
 
-export default function InputBar({socket, setCharLeft, username}: {socket: React.RefObject<Socket | null>, 
-    setCharLeft: React.Dispatch<React.SetStateAction<number>>, username: string}) {
+export default function InputBar({socket, setCharLeft, username, roomName}: {socket: React.RefObject<Socket | null>, 
+    setCharLeft: React.Dispatch<React.SetStateAction<number>>, username: string, roomName: string}) {
 
     const [messageInput, setMessageInput] = useState<string>("");
     //Message input causes a re render, which in this instances restarts socket.io(), so i should pass it in a a prop
@@ -26,12 +26,11 @@ export default function InputBar({socket, setCharLeft, username}: {socket: React
         }
         //Want to also check that the element is being focused on
         if (event.key === 'Enter' && input_ref.current === document.activeElement
-            && messageInput.length > 0
+            && messageInput.length > 0 && roomName.length > 0
         ) {
-            let message = {username: username, message: messageInput};
-            console.log(message);
+            let message = {roomName: roomName, username: username, message: messageInput};
+            // console.log(message);
             //Now, we need to find a way to send this to the server
-            // console.log(`${message}`);
             // console.log(`user [${socket?.current.id}] trying to send a message`);
             socket?.current.emit('chat message', message);
             // console.log("message got emited??");

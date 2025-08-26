@@ -10,7 +10,7 @@ interface Message {
     message: string;
 }
 
-export default function TextBox({ socket, messages }: {socket: React.RefObject<Socket | null>, messages: Message[]}) {
+export default function TextBox({ socket, messages, roomName }: {socket: React.RefObject<Socket | null>, messages: Message[], roomName: string}) {
     //Now we need to figure out how to get the chat stuff working...
     const [charLeft, setCharLeft] = useState<number>(50);
     const [userId, setUserId] = useState<string>("");
@@ -53,7 +53,7 @@ export default function TextBox({ socket, messages }: {socket: React.RefObject<S
         {/* Can either implement with message box or something else, but need to use list elements */}
         <MessageBox messages = {messages}/>
         <div className = "inputContainer">
-        <InputBar socket = {socket} setCharLeft = {setCharLeft} username={username}/>
+        <InputBar socket = {socket} setCharLeft = {setCharLeft} username={username} roomName={roomName}/>
         <div className = "charLeft">{charLeft}</div>
         </div>
        </div>

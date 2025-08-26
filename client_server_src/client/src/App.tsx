@@ -39,7 +39,7 @@ function App() {
   const [hasUser, setHasUser] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
-  // const [rooms, setRooms] = useState<Room[]>([]);
+  const [roomName, setRoomName] = useState<string>("");
   const [supabaseData, setSupabaseData] = useState<any[] | null>([]);
 
   // const supabase_url: string | undefined =  process.env.REACT_APP_SUPABASE_URL;
@@ -76,9 +76,9 @@ function App() {
 
     // Og code
     socket.current.on('message server', (data) => {
-        // console.log(data);
-        let newMessages = [...messages, data];
-        setMessages(newMessages);
+        console.log(data);
+        // let newMessages = [...messages, data];
+        setMessages((prevMessages) => [...prevMessages, data]);
     });
 
     // //Not sure if this code below works at all 
@@ -94,6 +94,9 @@ function App() {
     //     let newMessages = [...messages, data];
     //     setMessages(newMessages);
     // });
+    // return () => {
+    //       socket.current?.disconnect();
+    // };
 
 
   }, [socketUrl, messages]);
@@ -115,8 +118,8 @@ function App() {
         {/* Private Routes */}
         <Route element={<PrivateRoutes isLoggedIn={isLoggedIn}/>}>
         <Route path="/createProfile" element={<CreateProfile hasUser={hasUser}/>}/>
-        <Route path="/drawRoom" element={<CanvasChat socket = {socket} messages = {messages}/>}/>
-        <Route path="/joinRooms" element={<ChatRooms roomsData = {supabaseData} socket = {socket}/>}/>
+        <Route path="/drawRoom" element={<CanvasChat socket = {socket} messages = {messages} roomName={roomName}/>}/>
+        <Route path="/joinRooms" element={<ChatRooms roomsData = {supabaseData} socket = {socket} setRoomName={setRoomName}/>}/>
         <Route path="/createRoom" element={<CreateRoom/>}/>
         <Route path="/editProfile" element={<EditProfile/>}/>
         </Route>

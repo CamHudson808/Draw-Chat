@@ -3,19 +3,21 @@ import CanvasRoom from '../Components/CanvasRoom';
 import { Socket } from 'socket.io-client';
 import { Link, useNavigate } from 'react-router-dom';
 
-export default function ChatRooms( {roomsData, socket}: {roomsData: any[] | null, socket: React.RefObject<Socket | null>} ) {
+export default function ChatRooms( {roomsData, socket, setRoomName}: {roomsData: any[] | null, socket: React.RefObject<Socket | null>, 
+                                                                      setRoomName: React.Dispatch<React.SetStateAction<string>>} ) {
 
     const navigate = useNavigate();
 
     function handleConnect(index: number) {
-        //Get this working later...
-        //  if(!socket?.current) {
-        //     return;
-        // }
-        // const roomName = roomsData![index]['roomName'];
+        // Get this working later...
+         if(!socket?.current) {
+            return;
+        }
+        const roomName = roomsData![index]['roomName'];
 
-        // socket?.current.emit('join room', roomName);
-        // navigate('/drawRoom');
+        socket?.current.emit('join room', roomName);
+        setRoomName(roomName);
+        navigate('/drawRoom');
         return;
     }
 

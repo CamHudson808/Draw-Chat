@@ -10,7 +10,7 @@ interface Message {
 }
 
 
-export default function CanvasChat({ socket, messages }: {socket: React.RefObject<Socket | null>, messages: Message[]}) {
+export default function CanvasChat({ socket, messages, roomName }: {socket: React.RefObject<Socket | null>, messages: Message[], roomName: string}) {
 return (
 <div className="App">
    {/* <button className='signOut' onClick = {SignOut}> Sign Out </button> */}
@@ -28,7 +28,7 @@ return (
       <div className= "canvasbox">
         <CanvasBox/>
       </div>
-      <ChatBox socket = {socket} messages = {messages}/>
+      <ChatBox socket = {socket} messages = {messages} roomName={roomName}/>
     </div>
   </div>
 );

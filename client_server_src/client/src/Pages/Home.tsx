@@ -38,7 +38,7 @@ export default function Home() {
   }
   
   const handleNavigate = () => {
-    navigate('/drawRoom');
+    navigate('/joinRooms');
   }
 
   //When in production

@@ -21,41 +21,41 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 ///////////////////////////////////
 
 //Og code
-io.on('connection', (socket) => {
-    socket.on('chat message', (msg) => {
-        console.log(msg);
-        io.emit('message server', msg);
-    });
-});
+// io.on('connection', (socket) => {
+//     socket.on('chat message', (msg) => {
+//         console.log(msg);
+//         io.emit('message server', msg);
+//     });
+// });
 
 //code so you can join rooms and message within the message
-// io.on('connection', (socket) => {
-//     //Might not work
-//     socket.on('join room', (roomName) => {
-//         socket.join(roomName);
-//         console.log("going to try to join the room", roomName);
-//     });
+io.on('connection', (socket) => {
+
+    socket.on('join room', (roomName) => {
+        socket.join(roomName);
+        // console.log("going to try to join the room", roomName);
+    });
+
+    socket.on('chat message', ({roomName, username, message}) => {
+        // console.log(roomName, username, message);
+        // io.to(roomName).emit('message server', msg);
+        io.to(roomName).emit('message server', {username: username, message: message});
+    });
     
-//     //client is not emitting correctly
-//     socket.on('introduction', ({roomName, username}) => {
-//             console.log("exit", roomName, username);
-//             io.to(roomName).emit('intro message server', `${username} has joined the room!`);
-//     });
+    // //client is not emitting correctly
+    // socket.on('introduction', ({roomName, username}) => {
+    //         console.log("exit", roomName, username);
+    //         io.to(roomName).emit('intro message server', `${username} has joined the room!`);
+    // });
 
-//     //This stuff is undefined...
-//     socket.on('chat message', ({roomName, msg}) => {
-//         console.log("message:",roomName, msg);
-//         io.to(roomName).emit('message server', msg);
-//     });
+    // //client is not emitting correctly
+    // socket.on('exit room', ({roomName, username}) => {
+    //     console.log("exit",roomName,username)
+    //     io.to(roomName).emit('exit message server', `${username} has left the room.`);
+    //     socket.leave(roomName);
+    // });
 
-//     //client is not emitting correctly
-//     socket.on('exit room', ({roomName, username}) => {
-//         console.log("exit",roomName,username)
-//         io.to(roomName).emit('exit message server', `${username} has left the room.`);
-//         socket.leave(roomName);
-//     });
-
-// });
+});
 
 server.listen(port, () => {
     console.log(`App listening on port ${port}`);

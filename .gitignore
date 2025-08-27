@@ -2,7 +2,7 @@
 
 # environment variables
 .env
-
+todo.md
 # dependencies
 /node_modules
 /.pnp

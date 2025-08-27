@@ -76,7 +76,7 @@ function App() {
 
     // Og code
     socket.current.on('message server', (data) => {
-        console.log(data);
+        // console.log(data);
         // let newMessages = [...messages, data];
         setMessages((prevMessages) => [...prevMessages, data]);
     });

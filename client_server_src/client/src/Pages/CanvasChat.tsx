@@ -15,7 +15,7 @@ return (
 <div className="App">
    {/* <button className='signOut' onClick = {SignOut}> Sign Out </button> */}
     <div className="flex gap-4 mb-4">
-      <Link to="/">
+      <Link to="/Login">
       <button className="text-white bg-green-500 p-2 rounded shadow">Home</button>
       </Link>
 
@@ -26,7 +26,7 @@ return (
    
     <div className="CanvasChat">
       <div className= "canvasbox">
-        <CanvasBox socket={socket} roomName={roomName}/>
+        <CanvasBox/>
       </div>
       <ChatBox socket = {socket} messages = {messages} roomName={roomName}/>
     </div>

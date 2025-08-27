@@ -28,9 +28,6 @@ app.use(express.static(path.join(__dirname, '../client/build')));
 //     });
 // });
 
-//Going to store messages and drawing in the database
-
-
 //code so you can join rooms and message within the message
 io.on('connection', (socket) => {
 
@@ -44,22 +41,6 @@ io.on('connection', (socket) => {
         // io.to(roomName).emit('message server', msg);
         io.to(roomName).emit('message server', {username: username, message: message});
     });
-
-    // handle draw:start
-    socket.on("draw:start", ({ roomName, x, y, color, size }) => {
-        socket.to(roomName).emit("draw:start", { x, y, color, size });
-    });
-
-    // handle draw:move
-    socket.on("draw:move", ({ roomName, x, y }) => {
-        socket.to(roomName).emit("draw:move", { x, y });
-     });
-
-    // handle draw:end
-    socket.on("draw:end", ({ roomName }) => {
-        socket.to(roomName).emit("draw:end");
-    });
-
     
     // //client is not emitting correctly
     // socket.on('introduction', ({roomName, username}) => {

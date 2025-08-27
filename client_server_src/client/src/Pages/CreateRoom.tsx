@@ -4,11 +4,9 @@ import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
 import supabase from '../supabase_config/supabaseClient';
 import { useNavigate } from 'react-router-dom';
-import HandleRedirect from '../util/HandleRedirect';
 
 export default function CreateRoom() {
 
-HandleRedirect();
 
 const [roomName, setRoomName] = useState<string>("");
 const [roomDesc, setRoomDesc] = useState<string>("");

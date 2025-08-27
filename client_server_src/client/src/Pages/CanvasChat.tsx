@@ -26,7 +26,7 @@ return (
    
     <div className="CanvasChat">
       <div className= "canvasbox">
-        <CanvasBox/>
+        <CanvasBox socket={socket} roomName={roomName}/>
       </div>
       <ChatBox socket = {socket} messages = {messages} roomName={roomName}/>
     </div>

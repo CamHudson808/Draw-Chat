@@ -33,7 +33,7 @@ export default function ChatRooms( {roomsData, socket, setRoomName}: {roomsData:
 
             <ul className="flex flex-col gap-5 p-4 items-center">
                 {roomsData?.map((data, index) => {
-                    return <li>
+                    return <li key={data['roomName']}>
                         <div className="flex justify-center gap-4">
                             <CanvasRoom name={data['roomName']} description={data['roomDesc']}/>     
                             <button className="text-white text-2xl p-2 bg-green-500 rounded shadow" onClick={() => handleConnect(index)}>Join</button>

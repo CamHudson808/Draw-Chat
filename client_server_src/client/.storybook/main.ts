@@ -6,6 +6,7 @@ const config: StorybookConfig = {
     "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"
   ],
   "addons": [
+    'storybook-addon-remix-react-router',
     "@storybook/preset-create-react-app",
     "@storybook/addon-docs",
     "@storybook/addon-onboarding",

@@ -6,7 +6,10 @@ import supabase from '../supabase_config/supabaseClient';
 import { useNavigate } from 'react-router-dom';
 import '../App.css'
 
-export default function CreateProfile({hasUser}: {hasUser: boolean}) {
+export default function CreateProfile({hasUser, getUser = async () => {
+    const { data: { user } } = await supabase.auth.getUser();
+    return user;
+}}: {hasUser: boolean, getUser?: () => Promise<any>}) {
 
     const [selectedImg, setSelectedImg] = useState(null);
     const [blobUrl, setBlobUrl] = useState<string>("");
@@ -15,10 +18,10 @@ export default function CreateProfile({hasUser}: {hasUser: boolean}) {
     const [userId, setUserId] = useState<string>("");
     const navigate = useNavigate();
 
-    async function getUser() {
-        const { data: { user } } = await supabase.auth.getUser();
-        return user;
-    }
+    // async function getUser() {
+    //     const { data: { user } } = await supabase.auth.getUser();
+    //     return user;
+    // }
 
     useEffect(()=> {
         if(hasUser) {
@@ -34,7 +37,7 @@ export default function CreateProfile({hasUser}: {hasUser: boolean}) {
 
         });
 
-    }, [email, userId]);
+    }, [getUser]);
 
     useEffect(() => {
         if(selectedImg) {

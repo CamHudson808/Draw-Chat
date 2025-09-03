@@ -4,7 +4,11 @@ module.exports = {
         "./src/**/*.{html,js,jsx,ts,tsx}", // Adjust paths as needed for your project structure
       ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        montserrat: ['"Montserrat"', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 }

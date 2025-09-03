@@ -1,9 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import CreateProfile from '../Pages/CreateProfile';
-import {
-  withRouter,
-} from 'storybook-addon-remix-react-router';
-
+import { withRouter } from 'storybook-addon-remix-react-router';
 
 const meta = {
   title: 'Pages/CreateProfile',

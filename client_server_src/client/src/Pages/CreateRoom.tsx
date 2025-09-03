@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 
 export default function CreateRoom() {
 
-
 const [roomName, setRoomName] = useState<string>("");
 const [roomDesc, setRoomDesc] = useState<string>("");
 const navigate = useNavigate();
@@ -45,17 +44,20 @@ function handleChangeDesc(e: any) {
 
 return (
     <div className="flex flex-col items-center">
-        <div className ="flex items-center justify-between w-[1150px] ml-[720px] p-2">
-            <h1 className="text-white text-7xl">Create A Room</h1>
+        <div className ="flex items-center">
+            <h1 className="font-montserrat font-bold text-white text-7xl"> 
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-700 to-pink-500">Create</span> Room</h1>
             <Link to="/joinRooms">
-            <button className="text-2xl text-white bg-green-500 p-2 rounded shadow ml-auto">Exit</button>
+            <button className="absolute top-7 right-10 ri text-2xl text-white 
+                               bg-green-500 p-2 px-4 rounded shadow ml-auto
+                               hover:bg-green-600 transition duration-300 ease-in-out">Exit</button>
             </Link>
         </div>
 
-        <div className="bg-white h-[500px] w-[600px] rounded mt-[100px] p-5 flex flex-col">
-            <TextField id="standard-basic" label="Room Name" variant="standard" onChange={handleChangeName} />
-            <TextField label="Room Description" variant="standard" onChange={handleChangeDesc}/>
-            <Button variant="contained" color="success" onClick={handleCreate}>Create</Button>
+        <div className="flex flex-col items-center bg-white h-[500px] w-[600px] rounded mt-[100px] p-5 flex flex-col gap-10">
+            <TextField sx={{ width: '500px'}} id="standard-basic" label="Room Name" variant="standard" onChange={handleChangeName} />
+            <TextField sx={{ width: '500px'}} label="Room Description" variant="standard" onChange={handleChangeDesc}/>
+            <Button sx={{ width: '120px' }} variant="contained" color="success" onClick={handleCreate}>Create</Button>
         </div>
     </div>
 );

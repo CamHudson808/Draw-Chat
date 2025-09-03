@@ -212,7 +212,8 @@
   font-size: 15px;
   display: flex;
   flex-direction: column;
-  overflow-y: scroll;
+  scrollbar-color: rgb(197, 40, 40);
+  overflow-y: auto;
 
 }
 

@@ -2,36 +2,35 @@ import React, {useEffect, useState} from 'react';
 import supabase from '../supabase_config/supabaseClient'
 import { Session } from '@supabase/supabase-js';
 import Button from '@mui/material/Button';
-import Login from '../Components/Login';
 import { useNavigate } from 'react-router-dom';
 
-export default function Home() {
+export default function Home({supabaseClient = supabase}: {supabaseClient?: any}) {
 
   const [session, setSession] = useState<Session | null>(null);
   const navigate = useNavigate();
 
     // This is how we are doing supabase google authentication
   useEffect(() => {
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabaseClient.auth.getSession().then(({ data: { session } }: any) => {
       setSession(session);
     })
 
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabaseClient.auth.onAuthStateChange((_event: any, session: any) => {
       setSession(session);
     })
     return () => subscription.unsubscribe()
-  }, []);
+  }, );
   
   const SignIn = async () => {
-    await supabase.auth.signInWithOAuth({
+    await supabaseClient.auth.signInWithOAuth({
       provider: 'google',
     });
   }
 
   const SignOut = async () => {
-      const { error } = await supabase.auth.signOut();
+      const { error } = await supabaseClient.auth.signOut();
       if(error) {
         console.log(error);
       }
@@ -48,7 +47,7 @@ export default function Home() {
         </div>
 
         <div className="bg-white flex items-center h-[75px] justify-between px-4">
-            <h1 className="text-blue text-2xl">DRAW CHAT</h1>
+            <h1 className="font-montserrat font-bold text-blue text-2xl">DRAW CHAT</h1>
             <div className="flex gap-4">
               {!session && <button className='googleButton' onClick = {SignIn}> Sign In </button>}
               {session && <Button disabled={!session} variant="contained" color="success" size="large" onClick={handleNavigate}>Collaborate</Button>}

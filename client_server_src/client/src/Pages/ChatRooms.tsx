@@ -3,8 +3,13 @@ import CanvasRoom from '../Components/CanvasRoom';
 import { Socket } from 'socket.io-client';
 import { Link, useNavigate } from 'react-router-dom';
 
-export default function ChatRooms( {roomsData, socket, setRoomName}: {roomsData: any[] | null, socket: React.RefObject<Socket | null>, 
-                                                                      setRoomName: React.Dispatch<React.SetStateAction<string>>} ) {
+type ChatRoomsProps = {
+    roomsData: any[] | null;
+    socket: React.RefObject<Socket | null>;
+    setRoomName: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export default function ChatRooms( {roomsData, socket, setRoomName}: ChatRoomsProps) {
 
     const navigate = useNavigate();
 
@@ -21,7 +26,6 @@ export default function ChatRooms( {roomsData, socket, setRoomName}: {roomsData:
         return;
     }
 
-    //Figured it out, probably going to have to use dynamic routing to get the rooms working
     return (
         <div>
             <div className ="flex items-center justify-between w-[1150px] ml-[720px] p-2">

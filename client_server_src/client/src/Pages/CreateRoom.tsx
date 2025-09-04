@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import Button from '@mui/material/Button';
 import { TextField } from '@mui/material';
@@ -41,6 +41,8 @@ function handleChangeName(e: any) {
 function handleChangeDesc(e: any) {
         setRoomDesc(e.target.value);
     }
+
+useEffect(() => { document.body.style.backgroundColor = 'rgba(238, 238, 238, 1)' }, [])
 
 return (
     <div className="flex flex-col items-center">

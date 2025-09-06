@@ -3,6 +3,8 @@ import supabase from '../supabase_config/supabaseClient'
 import { Session } from '@supabase/supabase-js';
 import Button from '@mui/material/Button';
 import { useNavigate } from 'react-router-dom';
+import { TypewriterClass } from 'typewriter-effect';
+import '../App.css';
 
 export default function Home({supabaseClient = supabase}: {supabaseClient?: any}) {
 
@@ -55,9 +57,16 @@ export default function Home({supabaseClient = supabase}: {supabaseClient?: any}
             </div>
         </div> 
 
-        <div className="bg-gray-100 h-[100vh]">
-          {/* Here maybe we put a picture of the app in action */}
-
+        <div className="flex items-center justify-center bg-gray-100 h-[100vh]">
+        {/* <TypewriterComponent options={{
+          strings: ["Start drawing and chatting today!", 
+                    "What's something cool you could draw today?",
+                    "Remember to have fun!"],
+          autoStart: true,
+          loop: true,
+        }}/> */}
+        
+          {/* <h1 className="font-montserrat text-center font-bold text-8xl w-[600px] h-[600px]">Start Drawing and Chatting Today!</h1> */}
         </div>
         {/* {session && <h1>Welcome Back, {session?.user.email}</h1>} */}
     </div>

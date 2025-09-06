@@ -42,7 +42,13 @@ function handleChangeDesc(e: any) {
         setRoomDesc(e.target.value);
     }
 
-useEffect(() => { document.body.style.backgroundColor = 'rgba(238, 238, 238, 1)' }, [])
+//Experimenting with different background colors
+useEffect(() => { 
+    let original_bg_color = document.body.style.backgroundColor;
+    document.body.style.backgroundColor = 'rgba(238, 238, 238, 1)';
+    return () => { document.body.style.backgroundColor = original_bg_color };
+}, [])
+
 
 return (
     <div className="flex flex-col items-center">
@@ -50,9 +56,9 @@ return (
             <h1 className="font-montserrat font-bold text-white text-7xl"> 
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-700 to-pink-500">Create</span> Room</h1>
             <Link to="/joinRooms">
-            <button className="absolute top-7 right-10 ri text-2xl text-white 
-                               bg-green-500 p-2 px-4 rounded shadow ml-auto
-                               hover:bg-green-600 transition duration-300 ease-in-out">Exit</button>
+            <button className="absolute top-7 right-10 text-2xl text-white 
+                               bg-red-500 p-2 px-4 rounded shadow ml-auto
+                               hover:bg-red-600 transition duration-300 ease-in-out">Exit</button>
             </Link>
         </div>
 

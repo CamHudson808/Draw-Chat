@@ -86,6 +86,12 @@ export default function CreateProfile({hasUser, getUser = async () => {
         setSelectedImg(event.target.files[0])
     }
 
+    useEffect(() => { 
+    let original_bg_color = document.body.style.backgroundColor;
+    document.body.style.backgroundColor = 'rgba(238, 238, 238, 1)';
+    return () => { document.body.style.backgroundColor = original_bg_color };
+}, [])
+
     return (
         <div>
             <div className="bg-white h-[500px] w-[600px] rounded mt-[100px] p-5">

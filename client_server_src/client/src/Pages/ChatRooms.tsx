@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import CanvasRoom from '../Components/CanvasRoom';
 import { Socket } from 'socket.io-client';
 import { Link, useNavigate } from 'react-router-dom';
 
 type ChatRoomsProps = {
-    roomsData: any[] | null;
-    socket: React.RefObject<Socket | null>;
+    roomsData: {roomName: string, roomDesc: string}[] | null;
+    socket?: React.RefObject<Socket | null>;
     setRoomName: React.Dispatch<React.SetStateAction<string>>;
 }
 
@@ -26,26 +26,35 @@ export default function ChatRooms( {roomsData, socket, setRoomName}: ChatRoomsPr
         return;
     }
 
+     useEffect(() => { 
+    let original_bg_color = document.body.style.backgroundColor;
+    document.body.style.backgroundColor = 'rgba(238, 238, 238, 1)';
+    return () => { document.body.style.backgroundColor = original_bg_color };
+    }, [])
+
+
     return (
-        <div>
-            <div className ="flex items-center justify-between w-[1150px] ml-[720px] p-2">
-            <h1 className="text-white text-7xl">Join Rooms</h1>
+        <div className="flex justify-center">
+            <div className ="flex flex-col items-center w-[1150px] p-2">
+            <h1 className="font-montserrat font-bold text-white text-7xl"> 
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-purple-700 to-pink-500">Join</span> Rooms</h1>
             <Link to="/createRoom">
-            <button className="text-2xl text-white bg-green-500 p-2 rounded shadow ml-auto">Create Room</button>
+            <button className="absolute top-7 right-10 text-2xl text-white bg-green-500 p-2 rounded shadow ml-auto
+                               hover:bg-green-600 transition duration-300 ease-in-out">Create Room</button>
             </Link>
-            </div>
 
             <ul className="flex flex-col gap-5 p-4 items-center">
                 {roomsData?.map((data, index) => {
                     return <li key={data['roomName']}>
-                        <div className="flex justify-center gap-4">
+                        <div className="flex justify-center items-center gap-4">
                             <CanvasRoom name={data['roomName']} description={data['roomDesc']}/>     
-                            <button className="text-white text-2xl p-2 bg-green-500 rounded shadow" onClick={() => handleConnect(index)}>Join</button>
+                            <button className="text-white text-2xl h-[50px] p-2 bg-green-500 rounded shadow
+                                               hover:bg-green-600 transition duration-300 ease-in-out" onClick={() => handleConnect(index)}>Join</button>
                         </div>
                     </li>
                 })}
             </ul>
-            {/* Have a button for each room, meaning we are going to need something to store the rooms... time for POSTGRESS HAHAHAHA! */}
+            </div>
         </div>
     );
 }

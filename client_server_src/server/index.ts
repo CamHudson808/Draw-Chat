@@ -1,19 +1,22 @@
-const express = require('express');
-const { createServer } = require('node:http'); 
-const path = require('node:path');
-const { Server } = require('socket.io');
+import express from 'express';
+import { createServer } from 'node:http'; 
+// import path from 'node:path';
+import { Server } from 'socket.io';
 // const cors = require('cors');
 // app.use(cors()); 
+// this is an express server, but with the docker we already have a server serving the files...
+// we now just need one 
+
 
 const app = express();
 const server = createServer(app);
 const io = new Server(server);
-const port = 3000;
+const port = 4000; // Used to be 3000, hopefully doesn't break anything
 
 //CORS REQUEST DID NOT SUCCEED.
 
 //FOR REACT
-app.use(express.static(path.join(__dirname, '../client/build')));
+// app.use(express.static(path.join(__dirname, '../client/build')));
 ////////// TESTING CODE ///////////
 // app.get('/', (req, res) => {
 //     res.sendFile(path.join(__dirname, '/index.html'));

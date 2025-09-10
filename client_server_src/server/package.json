@@ -2,14 +2,13 @@
   "name": "server",
   "version": "1.0.0",
   "main": "index.tsx",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node index",
-    "dev": "nodemon index"
+    "start": "tsc && node index.js",
+    "dev": "nodemon index.js"
   },
   "keywords": [],
-  "author": "Cameron Hudson <chudson@middlebury.edu>",
+  "author": "Cameron Hudson <hudsonc808@gmail.com>",
   "license": "Apache-2.0",
   "description": "",
   "dependencies": {

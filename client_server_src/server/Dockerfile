@@ -6,4 +6,4 @@ COPY . .
 # Transpile Typescript to Javascript
 # I don't understand this command, need to look it up
 EXPOSE 4000
-CMD ["node","index.ts"]
+CMD ["npm","start"]

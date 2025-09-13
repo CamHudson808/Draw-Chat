@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const node_http_1 = require("node:http");
-// // import path from 'node:path';
 const socket_io_1 = require("socket.io");
 // const cors = require('cors');
 // app.use(cors()); 
@@ -18,7 +17,7 @@ const socket_io_1 = require("socket.io");
 const app = (0, express_1.default)();
 const server = (0, node_http_1.createServer)(app);
 const io = new socket_io_1.Server(server);
-const port = 4000; // Used to be 3000, hopefully doesn't break anything
+const port = 3000; // Used to be 3000, hopefully doesn't break anything
 //CORS REQUEST DID NOT SUCCEED.
 //FOR REACT
 // app.use(express.static(path.join(__dirname, '../client/build')));

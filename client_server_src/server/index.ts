@@ -1,6 +1,6 @@
 import express from 'express';
 import { createServer } from 'node:http'; 
-// // import path from 'node:path';
+import path from 'node:path';
 import { Server } from 'socket.io';
 // const cors = require('cors');
 // app.use(cors()); 
@@ -12,11 +12,17 @@ import { Server } from 'socket.io';
 // //  const path = require('node:path'); 
 //  const { Server } = require('socket.io');
 
-
 const app = express();
 const server = createServer(app);
-const io = new Server(server);
-const port = 4000; // Used to be 3000, hopefully doesn't break anything
+const io = new Server(server, {
+  cors: {
+    origin: "*", // or set to your frontend URL if you want to lock it down
+    methods: ["GET", "POST"],
+  },
+});
+
+//This is actually listening on port 4000????
+const port = process.env.PORT || 4000;
 
 //CORS REQUEST DID NOT SUCCEED.
 

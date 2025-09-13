@@ -3,7 +3,6 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-# Transpile Typescript to Javascript
 # I don't understand this command, need to look it up
 EXPOSE 4000
 CMD ["npm","start"]

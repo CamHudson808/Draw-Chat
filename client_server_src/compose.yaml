@@ -1,0 +1,14 @@
+services:
+  web:
+    image: "draw-chat-app"
+    depends_on:
+      - socket
+    build: ./client
+    ports:
+      - 80:80 # I don't know if this works
+
+  socket:
+    image: "draw-chat-socket"
+    build: ./server
+    ports:
+      - 3000:4000 # I dont know what port this is suppose to have either

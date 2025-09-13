@@ -4,12 +4,10 @@ WORKDIR /app
 COPY package*.json ./
 RUN npm install
 COPY . .
-EXPOSE 3000
-RUN npm run build 
-# This run command doesnt work, perhaps because of the structure (docker file not in client...)
-
+RUN npm run build
+ 
 # Production Stage
-FROM httpd:alpine AS production
-COPY --from=build /app/build /usr/local/apache2/htdocs/
+FROM nginx:stable-alpine AS production
+COPY --from=build /app/build /usr/share/nginx/html
 EXPOSE 80
-CMD ["httpd-foreground"]
+CMD ["nginx", "-g", "daemon off;"]
